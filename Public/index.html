@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.2.0/mdb.min.css" rel="stylesheet"/>
+    <!-- Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 70%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .hero-text {
+            text-align: left;
+            padding: 40px;
+        }
+
+        .hero-text h6 {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #777;
+            text-transform: uppercase;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #000;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 991px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+                padding: 20px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-image img {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-image img {
+                width: 100%;
+            }
+        }
+
+        .c-button {
+            color: #000;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            padding: 0.9em 1.6em;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            z-index: 1;
+        }
+
+        .c-button--gooey {
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid #000;
+            border-radius: 0;
+            position: relative;
+            transition: all 700ms ease;
+        }
+
+        .c-button--gooey .c-button__blobs {
+            height: 100%;
+            filter: url(#goo);
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: -3px;
+            right: -1px;
+            z-index: -1;
+        }
+
+        .c-button--gooey .c-button__blobs div {
+            background-color: #000;
+            width: 34%;
+            height: 100%;
+            border-radius: 100%;
+            position: absolute;
+            transform: scale(1.4) translateY(125%) translateZ(0);
+            transition: all 700ms ease;
+        }
+
+        .c-button--gooey .c-button__blobs div:nth-child(1) {
+            left: -5%;
+        }
+
+        .c-button--gooey .c-button__blobs div:nth-child(2) {
+            left: 30%;
+            transition-delay: 60ms;
+        }
+
+        .c-button--gooey .c-button__blobs div:nth-child(3) {
+            left: 66%;
+            transition-delay: 25ms;
+        }
+
+        .c-button--gooey:hover {
+            color: #fff;
+        }
+
+        .c-button--gooey:hover .c-button__blobs div {
+            transform: scale(1.4) translateY(0) translateZ(0);
+        }
+
+        .section-title {
+            width: 130px;
+            background-color: rgba(0, 0, 0, 0.148);
+            border-radius: 17px;
+            margin-bottom: 30px;
+        }
+
+        .section-title p {
+            color: black;
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .button {
+            width: 110px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            background-color: rgb(161, 255, 20);
+            border-radius: 30px;
+            color: rgb(19, 19, 19);
+            font-weight: 600;
+            border: none;
+            position: relative;
+            cursor: pointer;
+            transition-duration: .2s;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.116);
+            padding-left: 8px;
+            transition-duration: .5s;
+        }
+
+        .svgIcon {
+            height: 25px;
+            transition-duration: 1.5s;
+        }
+
+        .bell path {
+            fill: rgb(19, 19, 19);
+        }
+
+        .button:hover {
+            background-color: rgb(192, 255, 20);
+            transition-duration: .5s;
+        }
+
+        .button:active {
+            transform: scale(0.97);
+            transition-duration: .2s;
+        }
+
+        .button:hover .svgIcon {
+            transform: rotate(250deg);
+            transition-duration: 1.5s;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-links h5 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #6c757d;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 18px;
+            color: #6c757d;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #000;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container-fluid">
+            <button
+                data-mdb-collapse-init
+                class="navbar-toggler"
+                type="button"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    <img
+                        src="images/logo.png"
+                        height="60"
+                        alt="cart Logo"
+                        loading="lazy"
+                    />
+                </a>
+                <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <a class="text-reset me-3" href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+
+                <div class="dropdown">
+                    <a
+                        data-mdb-dropdown-init
+                        class="text-reset me-3 dropdown-toggle hidden-arrow"
+                        href="#"
+                        id="navbarDropdownMenuLink"
+                        role="button"
+                        aria-expanded="false"
+                    >
+                        <i class="fas fa-bell"></i>
+                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                    </a>
+                    <ul
+                        class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="navbarDropdownMenuLink"
+                    >
+                        <li>
+                            <a class="dropdown-item" href="#">Some news</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Another news</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="dropdown">
+                    <a
+                        data-mdb-dropdown-init
+                        class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                        href="#"
+                        id="navbarDropdownMenuAvatar"
+                        role="button"
+                        aria-expanded="false"
+                    >
+                        <img
+                            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                            class="rounded-circle"
+                            height="25"
+                            alt="Black and White Portrait of a Man"
+                            loading="lazy"
+                        />
+                    </a>
+                    <ul
+                        class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="navbarDropdownMenuAvatar"
+                    >
+                        <li>
+                            <a class="dropdown-item" href="#">My profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Hero -->
+    <section class="hero-section container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 hero-image text-center">
+                <img src="images/model_3.png" alt="Model" class="img-fluid">
+            </div>
+            <div class="col-lg-6 col-md-12 hero-text">
+                <h6>#NEW SUMMER COLLECTION 2019</h6>
+                <h1>ARRIVALS SALES</h1>
+                <button class="c-button c-button--gooey"> Shop Now
+                    <div class="c-button__blobs">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </button>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
+                    <defs>
+                        <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+                            <feBlend in="SourceGraphic" in2="goo"></feBlend>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Hero -->
+    <section id="about" class="hero-section container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 hero-text order-lg-1 order-2">
+                <div class="section-title">
+                    <p>About us</p>
+                </div>
+                <h1>Building Trust Through Every Click</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>   
+                <button class="button">
+                    <svg class="svgIcon" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg>
+                    Explore
+                </button>
+            </div>
+            <div class="col-lg-6 col-md-12 hero-image text-center order-lg-2 order-1">
+                <img src="images/about_1.jpg" alt="About Us" class="img-fluid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="container my-5">
+        <div class="section-title">
+            <p>Products</p>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/cloth_1.jpg" class="card-img-top" alt="Product">
+                    <div class="card-body">
+                        <h5 class="card-title">Fashion T-Shirt</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">$29.99</span>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/cloth_2.jpg" class="card-img-top" alt="Product">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Shirt</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">$39.99</span>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/cloth_3.jpg" class="card-img-top" alt="Product">
+                    <div class="card-body">
+                        <h5 class="card-title">Summer Dress</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">$49.99</span>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/shoe_1.jpg" class="card-img-top" alt="Product">
+                    <div class="card-body">
+                        <h5 class="card-title">Running Shoes</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">$79.99</span>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/children.jpg" class="card-img-top" alt="Product">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Sneakers</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">$59.99</span>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/cloth_1.jpg" class="card-img-top" alt="Product">
+                    <div class="card-body">
+                        <h5 class="card-title">Premium Jeans</h5>
+                        <p class="card-text">This is a longer card with lead-in to additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">$69.99</span>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="container my-5">
+        <div class="section-title">
+            <p>Blog</p>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/blog_1.jpg" class="card-img-top" alt="Blog">
+                    <div class="card-body">
+                        <p class="text-muted">Fashion / jul 11, 2022</p>
+                        <h5 class="card-title">How to look outstanding in pastel</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/shoe_1.jpg" class="card-img-top" alt="Blog">
+                    <div class="card-body">
+                        <p class="text-muted">Fashion / jul 11, 2022</p>
+                        <h5 class="card-title">Top 10 fashion trend for summer</h5>
+                        <p class="card-text">This is a supporting below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/blog_1.jpg" class="card-img-top" alt="Blog">
+                    <div class="card-body">
+                        <p class="text-muted">Fashion / jul 11, 2022</p>
+                        <h5 class="card-title">Crazy fashion with unique moment</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>About Us</h5>
+                    <p>We are a fashion store dedicated to providing the latest trends and high-quality clothing for our customers.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Customer Service</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Fashion Street, New York</li>
+                        <li><i class="fas fa-phone me-2"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@fashionstore.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Fashion Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.2.0/mdb.umd.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
